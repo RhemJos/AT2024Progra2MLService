@@ -7,12 +7,12 @@ user_service = UserService()
 class UserController:
     @staticmethod
     def create_user():
-        id = request.get_json("id")
-        name = request.get_json("name")
-        email = request.get_json("email")
-        password = request.get_json("password")
-        new_user = user_service.create_user(id, name, email, password)
-        return new_user.to_dictionary()
+        data = request.get_json()
+        id = data.get("id")
+        name = data.get("name")
+        email = data.get("email")
+        password = data.get("password")
+        return user_service.create_user(id, name, email, password)
 
     @staticmethod
     def get_users():

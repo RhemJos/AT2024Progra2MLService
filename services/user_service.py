@@ -8,7 +8,7 @@ class UserService:
     def create_user(self, id, name, email, password):
         new_user = User(id, name, email, password)
         self.users.append(new_user)
-        return new_user
+        return new_user.to_dictionary()
 
     def get_all_users(self):
         return [user.to_dictionary() for user in self.users]

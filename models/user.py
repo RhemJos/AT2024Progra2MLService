@@ -9,5 +9,5 @@ class User:
         return {
             "id": self.id,
             "name": self.name,
-            "email": self.password
+            "email": self.email
         }
