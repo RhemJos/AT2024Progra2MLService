@@ -5,7 +5,7 @@ class User:
         self.email = email
         self.password = password
 
-    def to_dict(self):
+    def to_dictionary(self):
         return {
             "id": self.id,
             "name": self.name,
