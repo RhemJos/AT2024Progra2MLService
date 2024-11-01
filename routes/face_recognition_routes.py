@@ -27,7 +27,7 @@ def recognize_face():
             }), 400
 
         result = FaceRecognitionController.recognize(file_path, reference_path)
-        print({result})
+        print(result)
         if result is not None:
             relative_path = f"/uploads/{file.filename}"
             return jsonify({
