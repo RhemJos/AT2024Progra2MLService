@@ -2,8 +2,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), '..', 'uploads')
+UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 if not os.path.exists(UPLOAD_FOLDER):
@@ -19,6 +18,8 @@ def save_file(file):
         filename = secure_filename(file.filename)
         file_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(file_path)
+        print(f"RUTA UTILS {file_path}")
+        print(f"TIPO RUTA {type(file_path)}")
         return file_path
     return None
 

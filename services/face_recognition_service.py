@@ -5,4 +5,4 @@ class FaceRecognitionService:
         self.recognizer = FaceRecognizer()
 
     def recognize(self, target_image_path, reference_path):
-        return self.recognizer.recognize(image_path, reference_path)
+        return self.recognizer.face_recognition(target_image_path, reference_path)
