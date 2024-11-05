@@ -13,4 +13,4 @@ app.register_blueprint(face_recognition_blueprint, url_prefix='/api')
 app.register_blueprint(download_blueprint, url_prefix='/api')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)

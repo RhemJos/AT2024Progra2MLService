@@ -30,6 +30,6 @@ def recognize_gender():
             relative_path = f"/uploads/{file.filename}"
             return jsonify({"success": True, "message": "Recognition completed", "file_path": relative_path, "result": result}), 200
         else:
-            return jsonify({"success": False, "message": "Recognition failed"}), 400
+            return jsonify({"success": False, "message": "Recognition failed"}), 500
 
     return jsonify({"success": False, "message": "File type not allowed"}), 400
