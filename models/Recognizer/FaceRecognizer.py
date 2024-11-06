@@ -1,27 +1,27 @@
-import os
 from deepface import DeepFace
+import pandas as pd
+import os
 
 class FaceRecognizer:
-    def face_recognition(self, target_image_path, reference_path):
-
+    def face_recognition(self, target_image_path, database_path, model_name='VGG-Face', threshold=0.4):
         if not os.path.isfile(target_image_path):
-            print(f"Error: Target image path '{target_image_path}' does not exist or is not a file.")
+            print(f"Target image path '{target_image_path}' does not exist or is not a file.")
+            return
+        if not os.path.isdir(database_path):
+            print(f"Database path '{database_path}' does not exist or is not a directory.")
             return
 
-        if not os.path.isdir(reference_path):
-            print(f"Error: Database path '{reference_path}' does not exist or is not a directory.")
-            return
+    # Perform face recognition
+        result = DeepFace.find(img_path=target_image_path, db_path=database_path, model_name=model_name)
 
-        try:
-            result = DeepFace.find(img_path=target_image_path, db_path=reference_path, model_name='VGG-Face')
-            
-            if not result.empty:
-                distance = result.iloc[0]['VGG-Face_cosine']
-                similarity_percentage = max(0, (1 - (distance / 0.4)) * 100)
-                print(f"Match found with similarity: {similarity_percentage:.2f}%")
-                print(result)
-            else:
-                print("No match found.")
-        
-        except Exception as e:
-            print(f"An error occurred during face recognition: {e}")
+        if result and isinstance(result[0], pd.DataFrame) and not result[0].empty:
+            closest_match_distance = result[0].iloc[0]['distance']
+
+            similarity_percentage = (1 - closest_match_distance) * 100
+
+            similarity_percentage = round(similarity_percentage, 2)
+            return similarity_percentage
+
+        else:
+            print("No matches found")
+
