@@ -17,3 +17,8 @@ class ObjectRecognitionController:
     def list_images(model_type, folder_path):
         service = ObjectRecognitionService(model_type)
         return service.list_images(folder_path)
+
+    @staticmethod
+    def recognize(model_type, file_path, confidence_threshold, word):
+        service = ObjectRecognitionService(model_type)
+        return service.recognize(file_path, confidence_threshold, word)
