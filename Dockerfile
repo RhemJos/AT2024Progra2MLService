@@ -1,6 +1,6 @@
 # Usa una versión más compatible de Python
 FROM python:3.10-slim
-
+ENV PYTHONUNBUFFERED=1
 # Establece el directorio de trabajo
 WORKDIR /app
 

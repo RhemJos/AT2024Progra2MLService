@@ -10,9 +10,9 @@
 
 from .Recognizer import Recognizer
 from ultralytics import YOLO
-import json
+from .DetectedFrame import DetectedFrame
 import os
-import cv2
+import json
 
 
 class ObjectRecognizerYolo(Recognizer):
@@ -30,9 +30,27 @@ class ObjectRecognizerYolo(Recognizer):
     def recognize(self, image_path: str, confidence_threshold: float = 0.1, word: str = None):
         if word is None:
             raise ValueError("The 'word' parameter is required.")
+
+        # Ejecutamos la predicción del modelo para la palabra especificada
         self.results = self.loaded_model.predict(source=image_path, conf=confidence_threshold,
                                                  classes=[self.get_word_id(word)])
-        return [['Yolo11', word.lower(), float(box.conf[0])] for box in self.results[0].boxes]
+
+        # Creamos una lista para almacenar los frames detectados
+        detected_frames = []
+
+        # Procesamos cada cuadro detectado para crear un DetectedFrame
+        for box in self.results[0].boxes:
+            confidence_score = float(box.conf[0]) * 100  # Convertimos a porcentaje
+            detected_frame = DetectedFrame(
+                path=image_path,
+                algorithm='Yolo11',
+                word=word.lower(),
+                percentage=round(confidence_score, 2),
+                time="00:00:00"  #TODO sacar este dato del nombre de la imagen
+            )
+            detected_frames.append(detected_frame)
+
+        return detected_frames #TODO devolver solo un detectedFrame
 
     def load_model(self):
         try:
@@ -49,52 +67,3 @@ class ObjectRecognizerYolo(Recognizer):
             if label == target_word.lower():
                 return int(id_label)
         raise ValueError(f"La palabra clave '{target_word}' no está en la lista de etiquetas.")
-
-
-class ObjectRecognizerMobileNet(Recognizer):
-
-    def __init__(self):
-        super().__init__()
-        self.descriptor_path = os.path.join(os.getcwd(), "deploy.prototxt")
-        self.model_path = os.path.join(os.getcwd(), "mobilenet_iter_73000.caffemodel")
-        self.loaded_model = None
-        self.load_model()
-        self.mobilenet_labels = self.load_labels(os.path.join(os.getcwd(), "classes_mobilenet.json"))
-        self.results = None
-
-    def recognize(self, image_path: str, confidence_threshold: float = 0.1, word: str = None):
-        if word is None:
-            raise ValueError("The 'word' parameter is required.")
-        image = cv2.imread(image_path)
-        (h, w) = image.shape[:2]
-        # detections = self.loaded_model.forward(cv2.dnn.blobFromImage(image,0.007843,(300, 300),127.5))
-        blob = cv2.dnn.blobFromImage(image,0.007843,(300, 300),127.5)
-        self.loaded_model.setInput(blob)
-        detections = self.loaded_model.forward()
-
-        results = []
-        for i in range(detections.shape[2]):
-            confidence = detections[0, 0, i, 2]
-            if confidence > confidence_threshold:
-                idx = int(detections[0, 0, i, 1])
-                if idx == self.get_word_id(word):
-                    fila = ['MobileNet-SSD', word, confidence]
-                    results.append(fila)
-        return results
-
-    def load_model(self):
-        try:
-            self.loaded_model = cv2.dnn.readNetFromCaffe(self.descriptor_path, self.model_path)
-        except Exception as e:
-            raise RuntimeError(f"Error al cargar el modelo: {e}")
-
-    def load_labels(self, labels_path: str):
-        with open(labels_path, 'r') as file:
-            return json.load(file)
-
-    def get_word_id(self, target_word: str):
-        for id_label, label in self.mobilenet_labels.items():
-            if label == target_word.lower():
-                return int(id_label)
-        raise ValueError(f"La palabra clave '{target_word}' no está en la lista de etiquetas.")
-
