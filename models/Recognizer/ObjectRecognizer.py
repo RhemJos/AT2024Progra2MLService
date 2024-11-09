@@ -43,11 +43,11 @@ class ObjectRecognizerYolo(Recognizer):
                 algorithm='Yolo11',
                 word=word.lower(),
                 percentage=round(confidence_score, 2),
-                time="00:00:00"  #TODO sacar este dato del nombre de la imagen
+                time="00:00:00"
             )
             detected_frames.append(detected_frame)
 
-        return detected_frames #TODO devolver solo un detectedFrame
+        return detected_frames[0]
 
     def load_model(self):
         try:
@@ -64,4 +64,3 @@ class ObjectRecognizerYolo(Recognizer):
             if label == target_word.lower():
                 return int(id_label)
         raise ValueError(f"La palabra clave '{target_word}' no está en la lista de etiquetas.")
-
