@@ -8,8 +8,8 @@
 # with Jalasoft.
 #
 from deepface import DeepFace
-from Recognizer import Recognizer
-from DetectedFrame import DetectedFrame  # Importamos la clase DetectedFrame
+from .Recognizer import Recognizer
+from .DetectedFrame import DetectedFrame  # Importamos la clase DetectedFrame
 
 class GenderRecognizer(Recognizer):
     def __init__(self):

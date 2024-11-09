@@ -26,7 +26,7 @@ def recognize_object_from_zip():
         results = []
         print('PROCESSING 1')
         for image_file in image_files:
-            print('PROCESSING')
+            print('PROCESSING 2')
             results.append(ObjectRecognitionController.recognize(model_type,image_file, confidence_threshold, word))
 
         return jsonify({"success": True, "message": "ZIP extracted and images listed", "results": results}), 200

@@ -7,9 +7,9 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-from Recognizer import Recognizer
+from .Recognizer import Recognizer
 from ultralytics import YOLO
-from DetectedFrame import DetectedFrame
+from .DetectedFrame import DetectedFrame
 import os
 import json
 
@@ -21,7 +21,7 @@ class ObjectRecognizerYolo(Recognizer):
         self.model_path = os.path.join(os.getcwd(), "yolo11n.pt")
         self.loaded_model = None
         self.load_model()
-        self.yolo_labels = self.load_labels(os.path.join(os.getcwd(), "classes_yolo.json"))
+        self.yolo_labels = self.load_labels(os.path.join(os.getcwd(), "models/Recognizer/classes_yolo.json"))
         self.results = None
 
     def recognize(self, image_path: str, confidence_threshold: float = 0.1, word: str = None):

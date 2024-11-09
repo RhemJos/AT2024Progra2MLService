@@ -1,4 +1,4 @@
-from models.Recognizer.ObjectRecognizer import ObjectRecognizerYolo, ObjectRecognizerMobileNet
+from models.Recognizer.ObjectRecognizer import ObjectRecognizerYolo
 
 class ObjectRecognitionService:
     def __init__(self, model_type):
