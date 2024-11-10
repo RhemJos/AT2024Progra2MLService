@@ -27,7 +27,9 @@ def recognize_object_from_zip():
         print('PROCESSING 1')
         for image_file in image_files:
             print('PROCESSING 2')
-            results.append((ObjectRecognitionController.recognize(model_type, image_file, confidence_threshold, word)).to_json())
+            verification = ObjectRecognitionController.recognize(model_type, image_file, confidence_threshold, word)
+            if verification:
+                results.append(verification.to_json())
 
         return jsonify({"success": True, "message": "ZIP extracted and images listed", "results": results}), 200
     except FileNotFoundError as e:

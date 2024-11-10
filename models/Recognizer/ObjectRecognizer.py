@@ -38,16 +38,18 @@ class ObjectRecognizerYolo(Recognizer):
         # Procesamos cada cuadro detectado para crear un DetectedFrame
         for box in self.results[0].boxes:
             confidence_score = float(box.conf[0]) * 100  # Convertimos a porcentaje
-            detected_frame = DetectedFrame(
-                path=image_path,
-                algorithm='Yolo11',
-                word=word.lower(),
-                percentage=round(confidence_score, 2),
-                time="00:00:00"
-            )
-            detected_frames.append(detected_frame)
-
-        return detected_frames[0]
+            if confidence_score >= (confidence_threshold*100):
+                detected_frame = DetectedFrame(
+                    path=image_path,
+                    algorithm='Yolo11',
+                    word=word.lower(),
+                    percentage=round(confidence_score, 2),
+                    time="00:00:00"
+                )
+                detected_frames.append(detected_frame)
+            else:
+                return False
+            return detected_frames[0]
 
     def load_model(self):
         try:
