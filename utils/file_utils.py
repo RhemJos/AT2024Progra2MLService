@@ -1,8 +1,9 @@
 import os
+
 import requests
 import zipfile
 from werkzeug.utils import secure_filename
-from flask import send_from_directory
+
 
 UPLOAD_FOLDER = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'uploads'))
@@ -29,7 +30,7 @@ def save_file(file):
 
 def save_file_from_url(url):
     local_filename = os.path.join(
-        UPLOAD_FOLDER, secure_filename(os.path.basename(url)))
+        '', secure_filename(os.path.basename(url)))+'.zip'
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
         with open(local_filename, 'wb') as f:
@@ -38,9 +39,6 @@ def save_file_from_url(url):
     return local_filename
 
 
-# def extract_zip(zip_path, extract_folder):
-#     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-#         zip_ref.extractall(extract_folder)
 def extract_zip(zip_path, extract_folder):
     if not os.path.exists(zip_path): 
         raise FileNotFoundError(f"The file {zip_path} does not exist.") 
@@ -51,7 +49,5 @@ def extract_zip(zip_path, extract_folder):
     return extract_folder
 
 
-def download_file(filename):
-    if allowed_file(filename):
-        return send_from_directory(UPLOAD_FOLDER, filename)
-    return None
+
+

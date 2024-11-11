@@ -29,8 +29,8 @@ class GenderRecognizer(Recognizer):
 
             detected_gender = analysis['gender']
             print(detected_gender)
-            woman_percentage = detected_gender['Woman']
-            man_percentage = detected_gender['Man']
+            woman_percentage = float(detected_gender['Woman'])
+            man_percentage = float(detected_gender['Man'])
 
             # Solo devolveremos el resultado si cumple con los criterios de género y porcentaje
             if word == 'Woman' and woman_percentage > man_percentage and woman_percentage >= percentage:
