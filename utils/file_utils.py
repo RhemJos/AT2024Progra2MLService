@@ -28,17 +28,6 @@ def save_file(file):
     return None
 
 
-def save_file_from_url(url):
-    local_filename = os.path.join(
-        '', secure_filename(os.path.basename(url)))+'.zip'
-    with requests.get(url, stream=True) as r:
-        r.raise_for_status()
-        with open(local_filename, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
-    return local_filename
-
-
 def extract_zip(zip_path, extract_folder):
     if not os.path.exists(zip_path): 
         raise FileNotFoundError(f"The file {zip_path} does not exist.") 
@@ -48,6 +37,20 @@ def extract_zip(zip_path, extract_folder):
         zip_ref.extractall(extract_folder) 
     return extract_folder
 
+
+def download_file_from_url(url):
+    extension = ".zip"
+    # Crear la ruta completa del archivo, incluyendo el directorio especificado
+    file_name = secure_filename(os.path.basename(url))
+    local_filename = os.path.join('uploads', file_name)+ extension
+
+    # Descargar el archivo desde la URL
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(local_filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+    return file_name + extension
 
 
 
