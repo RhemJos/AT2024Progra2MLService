@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from controllers.recognizer_controller import ObjectRecognitionController
+import json
 
 
 object_recognition_from_zip_blueprint = Blueprint(
@@ -31,7 +32,9 @@ def recognize_object_from_zip():
             if verification:
                 results.append(verification.to_json())
 
-        return jsonify({"success": True, "message": "ZIP extracted and images listed", "results": results}), 200
+        cleaned_results = [json.loads(result) for result in results]
+
+        return jsonify({"success": True, "message": "ZIP extracted and images listed", "results": cleaned_results}), 200
     except FileNotFoundError as e:
         return jsonify({"success": False, "message": str(e)}), 404
     except Exception as e:
