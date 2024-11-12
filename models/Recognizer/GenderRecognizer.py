@@ -28,7 +28,6 @@ class GenderRecognizer(Recognizer):
                 analysis = analysis[0]  # Tomamos el primer rostro detectado
 
             detected_gender = analysis['gender']
-            print(detected_gender)
             woman_percentage = float(detected_gender['Woman'])
             man_percentage = float(detected_gender['Man'])
 
