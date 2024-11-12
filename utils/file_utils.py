@@ -1,8 +1,12 @@
 import os
-from werkzeug.utils import secure_filename
-from flask import send_from_directory
 
-UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'uploads'))
+import requests
+import zipfile
+from werkzeug.utils import secure_filename
+
+
+UPLOAD_FOLDER = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '..', 'uploads'))
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 if not os.path.exists(UPLOAD_FOLDER):
@@ -23,7 +27,30 @@ def save_file(file):
         return file_path
     return None
 
-def download_file(filename):
-    if allowed_file(filename):
-        return send_from_directory(UPLOAD_FOLDER, filename)
-    return None
+
+def extract_zip(zip_path, extract_folder):
+    if not os.path.exists(zip_path): 
+        raise FileNotFoundError(f"The file {zip_path} does not exist.") 
+    if not os.path.exists(extract_folder): 
+        os.makedirs(extract_folder) 
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref: 
+        zip_ref.extractall(extract_folder) 
+    return extract_folder
+
+
+def download_file_from_url(url):
+    extension = ".zip"
+    # Crear la ruta completa del archivo, incluyendo el directorio especificado
+    file_name = secure_filename(os.path.basename(url))
+    local_filename = os.path.join('uploads', file_name)+ extension
+
+    # Descargar el archivo desde la URL
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(local_filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+    return file_name + extension
+
+
+
