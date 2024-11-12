@@ -6,4 +6,4 @@ class GenderRecognitionService:
         self.recognizer = GenderRecognizer()
 
     def recognize(self, image_path, confidence_threshold, word):
-        return self.recognizer.recognize(image_path, confidence_threshold)
+        return self.recognizer.recognize(image_path, confidence_threshold,word)

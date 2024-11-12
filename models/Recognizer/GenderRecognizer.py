@@ -8,8 +8,8 @@
 # with Jalasoft.
 #
 from deepface import DeepFace
-from Recognizer import Recognizer
-from DetectedFrame import DetectedFrame  # Importamos la clase DetectedFrame
+from .Recognizer import Recognizer
+from .DetectedFrame import DetectedFrame  # Importamos la clase DetectedFrame
 
 class GenderRecognizer(Recognizer):
     def __init__(self):
@@ -29,28 +29,34 @@ class GenderRecognizer(Recognizer):
 
             detected_gender = analysis['gender']
             print(detected_gender)
-            woman_percentage = detected_gender['Woman']
-            man_percentage = detected_gender['Man']
+            woman_percentage = float(detected_gender['Woman'])
+            man_percentage = float(detected_gender['Man'])
 
             # Solo devolveremos el resultado si cumple con los criterios de género y porcentaje
             if word == 'Woman' and woman_percentage > man_percentage and woman_percentage >= percentage:
-                detected_frame = DetectedFrame(
-                    path=image_path,
-                    algorithm='DeepFace',
-                    word=word,
-                    percentage=woman_percentage,
-                    time="00:00:00"  # Tiempo estático para este ejemplo; puede adaptarse si se tiene esta información.
-                )
-                return detected_frame
+                if woman_percentage >= percentage:
+                    detected_frame = DetectedFrame(
+                        path=image_path,
+                        algorithm='DeepFace',
+                        word=word,
+                        percentage=woman_percentage,
+                        time="00:00:00"  # Tiempo estático para este ejemplo; puede adaptarse si se tiene esta información.
+                    )
+                    return detected_frame
+                else:
+                    return False
             elif word == 'Man' and man_percentage > woman_percentage and man_percentage >= percentage:
-                detected_frame = DetectedFrame(
-                    path=image_path,
-                    algorithm='DeepFace',
-                    word=word,
-                    percentage=man_percentage,
-                    time="00:00:00"
-                )
-                return detected_frame
+                if man_percentage >= percentage:
+                    detected_frame = DetectedFrame(
+                        path=image_path,
+                        algorithm='DeepFace',
+                        word=word,
+                        percentage=man_percentage,
+                        time="00:00:00"
+                    )
+                    return detected_frame
+                else:
+                    return False
             # Si no se cumplen los criterios, devolvemos None indicando que no se encontró coincidencia
             print(f"No matches found for '{word}' with confidence >= {percentage}%.")
             return None

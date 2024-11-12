@@ -7,9 +7,9 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-from Recognizer import Recognizer
+from .Recognizer import Recognizer
 from ultralytics import YOLO
-from DetectedFrame import DetectedFrame
+from .DetectedFrame import DetectedFrame
 import os
 import json
 
@@ -21,7 +21,7 @@ class ObjectRecognizerYolo(Recognizer):
         self.model_path = os.path.join(os.getcwd(), "yolo11n.pt")
         self.loaded_model = None
         self.load_model()
-        self.yolo_labels = self.load_labels(os.path.join(os.getcwd(), "classes_yolo.json"))
+        self.yolo_labels = self.load_labels(os.path.join(os.getcwd(), "models/Recognizer/classes_yolo.json"))
         self.results = None
 
     def recognize(self, image_path: str, confidence_threshold: float = 0.1, word: str = None):
@@ -38,16 +38,18 @@ class ObjectRecognizerYolo(Recognizer):
         # Procesamos cada cuadro detectado para crear un DetectedFrame
         for box in self.results[0].boxes:
             confidence_score = float(box.conf[0]) * 100  # Convertimos a porcentaje
-            detected_frame = DetectedFrame(
-                path=image_path,
-                algorithm='Yolo11',
-                word=word.lower(),
-                percentage=round(confidence_score, 2),
-                time="00:00:00"
-            )
-            detected_frames.append(detected_frame)
-
-        return detected_frames[0]
+            if confidence_score >= (confidence_threshold*100):
+                detected_frame = DetectedFrame(
+                    path=image_path,
+                    algorithm='Yolo11',
+                    word=word.lower(),
+                    percentage=round(confidence_score, 2),
+                    time="00:00:00"
+                )
+                detected_frames.append(detected_frame)
+            else:
+                return False
+            return detected_frames[0]
 
     def load_model(self):
         try:
