@@ -9,7 +9,8 @@ class ObjectRecognitionService:
             self.recognizer = ObjectRecognizerYolo()
         elif self.model_type == 'gender':
             self.recognizer = GenderRecognizer()
-        if self.model_type not in ['yolo', 'gender']:
+            #TODO elif de Iris recognizer
+        if self.model_type not in ['yolo', 'gender']: #TODO añadir en la lista y revisar la comprobacion
             raise ValueError(f"Model type {self.model_type} is not supported")
 
     def list_images(self, folder_path):

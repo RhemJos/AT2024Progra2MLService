@@ -3,7 +3,7 @@ from services.recognizer_services import ObjectRecognitionService
 from utils.file_utils import extract_zip
 
 
-class ObjectRecognitionController:
+class ModelRecognitionController:
     UPLOAD_FOLDER = os.path.abspath(os.path.join(
         os.path.dirname(__file__), '..', 'uploads'))
 
