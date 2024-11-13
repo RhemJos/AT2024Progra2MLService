@@ -1,27 +1,45 @@
-import os
 from deepface import DeepFace
+from Recognizer import Recognizer
+from DetectedFrame import DetectedFrame
+import os
 
-class FaceRecognizer:
-    def face_recognition(self, target_image_path, reference_path):
 
-        if not os.path.isfile(target_image_path):
-            print(f"Error: Target image path '{target_image_path}' does not exist or is not a file.")
-            return
+class FaceRecognizer(Recognizer):
+    def __init__(self):
+        super().__init__()
 
-        if not os.path.isdir(reference_path):
-            print(f"Error: Database path '{reference_path}' does not exist or is not a directory.")
-            return
+    def recognize(self, image_path: str, reference_image_path: str, percentage: float = 80.0,
+                  word: str = "face") -> DetectedFrame:
+        if not os.path.isfile(image_path) or not os.path.isfile(reference_image_path):
+            raise ValueError("Both 'image_path' and 'reference_image_path' must be valid file paths.")
 
         try:
-            result = DeepFace.find(img_path=target_image_path, db_path=reference_path, model_name='VGG-Face')
-            
-            if not result.empty:
-                distance = result.iloc[0]['VGG-Face_cosine']
-                similarity_percentage = max(0, (1 - (distance / 0.4)) * 100)
-                print(f"Match found with similarity: {similarity_percentage:.2f}%")
-                print(result)
-            else:
-                print("No match found.")
-        
+            # Realizar la comparación de rostros
+            result = DeepFace.verify(img1_path=reference_image_path, img2_path=image_path)
+            similarity_score = result['distance'] if 'distance' in result else None
+
+            if similarity_score is None:
+                print("Error: No similarity score returned.")
+                return None
+
+            # Convertimos la distancia en porcentaje de similitud
+            similarity_percentage = (1 - similarity_score) * 100
+
+            # Verificamos si el porcentaje de similitud es mayor o igual al requerido
+            if similarity_percentage >= percentage:
+                detected_frame = DetectedFrame(
+                    path=image_path,
+                    algorithm='DeepFace',
+                    word=word,
+                    percentage=round(similarity_percentage, 2),
+                    time="00:00:00"  # Tiempo estático; cambiar según disponibilidad de información
+                )
+                return detected_frame
+
+            print(
+                f"No match found with confidence >= {percentage}%. Similarity was {round(similarity_percentage, 2)}%.")
+            return None
+
         except Exception as e:
-            print(f"An error occurred during face recognition: {e}")
+            print(f"Error during face recognition: {e}")
+            return None
