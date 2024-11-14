@@ -1,6 +1,7 @@
 import os
-from services.recognizer_services import ObjectRecognitionService
+
 from utils.file_utils import extract_zip
+from services.recognizer_services import (RecognitionService)
 
 
 class ModelRecognitionController:
@@ -15,10 +16,10 @@ class ModelRecognitionController:
 
     @staticmethod
     def list_images(model_type, folder_path):
-        service = ObjectRecognitionService(model_type)
+        service = RecognitionService(model_type)
         return service.list_images(folder_path)
 
     @staticmethod
     def recognize(model_type, file_path, confidence_threshold, word):
-        service = ObjectRecognitionService(model_type)
+        service = RecognitionService(model_type)
         return service.recognize(file_path, confidence_threshold, word)

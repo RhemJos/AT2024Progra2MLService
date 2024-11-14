@@ -3,11 +3,11 @@ from controllers.recognizer_controller import ModelRecognitionController
 import json
 from utils.file_utils import download_file_from_url
 
-object_recognition_from_zip_blueprint = Blueprint(
-    'object_recognition_from_zip', __name__)
+recognition_blueprint = Blueprint(
+    'recognition', __name__)
 
 #TODO un nuevo POST para face recognizer
-@object_recognition_from_zip_blueprint.route('/object_recognition_from_zip', methods=['POST'])
+@recognition_blueprint.route('/recognition', methods=['POST'])
 def recognize_object_from_zip():
     print("---INICIANDO---", flush=True)
     data = request.get_json()
@@ -40,3 +40,5 @@ def recognize_object_from_zip():
         return jsonify({"success": False, "message": str(e)}), 404
     except Exception as e:
         return jsonify({"success": False, "message": "An error occurred", "error": str(e)}), 500
+
+#TODO nuevo endpoint devolver el json de classes_yolo (GET)
