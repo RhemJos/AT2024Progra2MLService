@@ -6,11 +6,11 @@ from models.Recognizer.ObjectRecognizer import ObjectRecognizerYolo
 class ObjectRecognizerTest(unittest.TestCase):
     def setUp(self):
         self.instance = ObjectRecognizerYolo()
-        self.model_path = 'yolo11n.pt'
+        self.model_path = 'models/Recognizer/yolo11n.pt'
 
     #Carga de Modelo Exitosa
     def test_load_model_success(self):
-        self.instance.model_path = '../models/Recognizer/yolo11n.pt'
+        self.instance.model_path = self.model_path
         self.instance.load_model()
         self.assertIsNotNone(self.instance.loaded_model)
         print("El modelo se cargó exitosamente.")
@@ -51,7 +51,7 @@ class ObjectRecognizerTest(unittest.TestCase):
 
     #Verificacion que el modelo reconoce
     def test_recognize(self):
-        image_path = '../uploads/Filexample/persona1_01_10_44.jpeg'
+        image_path = 'uploads/Filexample/persona1_01_10_44.jpeg'
         result = self.instance.recognize(image_path, confidence_threshold=0.5, word='person')
 
         self.assertIsNotNone(result)
