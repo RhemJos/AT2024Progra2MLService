@@ -32,13 +32,17 @@ class ObjectRecognizerYolo(Recognizer):
         self.results = self.loaded_model.predict(source=image_path, conf=confidence_threshold,
                                                  classes=[self.get_word_id(word)])
 
+        # Verificamos si se detectaron cuadros
+        if not self.results or not self.results[0].boxes:
+            return False  # Indica que no hubo detecciones
+
         # Creamos una lista para almacenar los frames detectados
         detected_frames = []
 
         # Procesamos cada cuadro detectado para crear un DetectedFrame
         for box in self.results[0].boxes:
             confidence_score = float(box.conf[0]) * 100  # Convertimos a porcentaje
-            if confidence_score >= (confidence_threshold*100):
+            if confidence_score >= (confidence_threshold * 100):
                 detected_frame = DetectedFrame(
                     path=image_path,
                     algorithm='Yolo11',
@@ -47,9 +51,9 @@ class ObjectRecognizerYolo(Recognizer):
                     time="00:00:00"
                 )
                 detected_frames.append(detected_frame)
-            else:
-                return False
-            return detected_frames[0]
+
+        # Retornamos el primer cuadro detectado si existe alguno
+        return detected_frames[0] if detected_frames else False
 
     def load_model(self):
         try:
