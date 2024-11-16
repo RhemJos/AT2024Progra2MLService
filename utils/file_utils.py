@@ -52,5 +52,12 @@ def download_file_from_url(url):
                 f.write(chunk)
     return file_name + extension
 
+def save_image(file):
+    filename = "imagen de referencia"
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+    print(f"RUTA UTILS {file_path}")
+    print(f"TIPO RUTA {type(file_path)}")
+    return file_path
 
 
