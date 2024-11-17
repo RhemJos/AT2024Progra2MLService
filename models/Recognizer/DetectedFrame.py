@@ -26,13 +26,13 @@ class DetectedFrame:
                 f"word={self.word}, percentage={self.percentage}%, "
                 f"second={self.time})")
 
-    def get_time(self) -> str: #TODO usar solo segundos
-    #Buscar el patrón de tiempo en formato HH_MM_SS en la cadena de texto
-        match = re.search(r'(\d{2})_(\d{2})_(\d{2})(?=\D*$)', self.path)
+    def get_time(self) -> str:
+    # We divide the path into parts using the forward slash as a reference
+        parts = self.path.split('/')
 
-    # Si encontramos un patrón válido, formateamos y retornamos el tiempo
-        if match:
-                hours, minutes, seconds = match.groups()
-                return f"{hours}:{minutes}:{seconds}"
+    # We take the las part of the path and separate the file name from the extension
+        if parts:
+                filename = parts[-1]
+                return filename.split('.')[0]
         else:
                 return "No valid time found in the text."
