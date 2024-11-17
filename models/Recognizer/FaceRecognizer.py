@@ -1,6 +1,6 @@
 from deepface import DeepFace
-from Recognizer import Recognizer
-from DetectedFrame import DetectedFrame
+from .Recognizer import Recognizer
+from .DetectedFrame import DetectedFrame
 import os
 
 
@@ -10,14 +10,12 @@ class FaceRecognizer(Recognizer):
 
     def recognize(self, image_path: str, reference_image_path: str, percentage: float = 80.0,
                   word: str = "face") -> DetectedFrame:
-        if not os.path.isfile(image_path) or not os.path.isfile(reference_image_path):
-            raise ValueError("Both 'image_path' and 'reference_image_path' must be valid file paths.")
 
         try:
             # Realizar la comparación de rostros
             result = DeepFace.verify(img1_path=reference_image_path, img2_path=image_path)
             similarity_score = result['distance'] if 'distance' in result else None
-
+            print(similarity_score)
             if similarity_score is None:
                 print("Error: No similarity score returned.")
                 return None

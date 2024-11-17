@@ -26,7 +26,7 @@ class DetectedFrame:
                 f"word={self.word}, percentage={self.percentage}%, "
                 f"second={self.time})")
 
-    def get_time(self) -> str:
+    def get_time(self) -> str: #TODO usar solo segundos
     #Buscar el patrón de tiempo en formato HH_MM_SS en la cadena de texto
         match = re.search(r'(\d{2})_(\d{2})_(\d{2})(?=\D*$)', self.path)
 
