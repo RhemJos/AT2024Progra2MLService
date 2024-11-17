@@ -2,7 +2,7 @@ import os
 
 from utils.file_utils import extract_zip
 from services.recognizer_services import (RecognitionService)
-
+from services.recognizer_services import (FaceRecognitionService)
 
 class ModelRecognitionController:
     UPLOAD_FOLDER = os.path.abspath(os.path.join(
@@ -23,3 +23,8 @@ class ModelRecognitionController:
     def recognize(model_type, file_path, confidence_threshold, word):
         service = RecognitionService(model_type)
         return service.recognize(file_path, confidence_threshold, word)
+
+    @staticmethod
+    def recognize_face(image_path,image_reference, confidence_threshold, word):
+        service = FaceRecognitionService()
+        return service.recognize(image_path, image_reference, confidence_threshold, word)

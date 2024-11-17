@@ -5,6 +5,7 @@ from common.validations.context import Context
 from common.validations.file_not_found_strategy import FileNotFoundStrategy
 from common.validations.generic_exception_strategy import GenericExceptionStrategy
 from common.validations.http_error_strategy import HTTPErrorStrategy
+from common.validations.parameter_error_strategy import ParameterErrorStrategy
 
 
 class ErrorHandlerFacade:
@@ -12,6 +13,7 @@ class ErrorHandlerFacade:
         self.strategies = {
             FileNotFoundError: FileNotFoundStrategy,
             HTTPError: HTTPErrorStrategy,
+            ValueError: ParameterErrorStrategy,
             Exception: GenericExceptionStrategy
         }
 

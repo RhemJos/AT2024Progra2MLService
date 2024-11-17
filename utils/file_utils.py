@@ -44,13 +44,26 @@ def download_file_from_url(url):
     file_name = secure_filename(os.path.basename(url))
     local_filename = os.path.join('uploads', file_name)+ extension
 
-    # Descargar el archivo desde la URL
-    with requests.get(url, stream=True) as r:
-        r.raise_for_status()
-        with open(local_filename, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
-    return file_name + extension
+    try:
+        # Descargar el archivo desde la URL
+        with requests.get(url, stream=True) as r:
+            r.raise_for_status()
+            with open(local_filename, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    f.write(chunk)
+        return file_name + extension
+    
+    except requests.exceptions.HTTPError as http_error:
+        raise http_error
+    except requests.exceptions.RequestException as req_err:
+        raise ValueError(f"Request failed: {str(req_err)}")
 
+def save_image(file):
+    filename = "imagen de referencia"
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+    print(f"RUTA UTILS {file_path}")
+    print(f"TIPO RUTA {type(file_path)}")
+    return file_path
 
 
