@@ -10,10 +10,10 @@ class TestFaceRecognizer(unittest.TestCase):
         Ensure these paths point to actual test images in your environment.
         """
         self.recognizer = FaceRecognizer()
-        self.valid_image_path = "uploads/Filexample/HK_01_01_01.jpeg"
-        self.reference_image_path = "uploads/Filexample/HK_02_02_02.jpg"
-        self.non_matching_image_path = "uploads/Filexample/CR_01_01_01.jpg"
-        self.invalid_image_path = "models_tests/uploads/Filexample/invalid_01_01_02.jpg"
+        self.valid_image_path = "uploads/Filexample/6.jpeg"
+        self.reference_image_path = "uploads/Filexample/7.jpg"
+        self.non_matching_image_path = "uploads/Filexample/5.jpg"
+        self.invalid_image_path = "models_tests/uploads/Filexample/invalid.jpg"
 
     #Test successful face recognition when the similarity percentage is met.
     def test_recognize_success(self):

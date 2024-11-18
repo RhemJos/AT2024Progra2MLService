@@ -7,9 +7,9 @@ from models.Recognizer.DetectedFrame import DetectedFrame
 class TestGenderRecognizer(unittest.TestCase):
     def setUp(self):
         # Set up the image paths for testing
-        self.image_path_woman = "uploads/Filexample/persona2_02_11_23.jpeg"
-        self.image_path_man = "uploads/Filexample/persona4_04_05_06.jpeg"
-        self.image_path_invalid = "uploads/Filexample/objeto_02_04_13.jpg"
+        self.image_path_woman = "uploads/Filexample/2.jpeg"
+        self.image_path_man = "uploads/Filexample/3.jpeg"
+        self.image_path_invalid = "uploads/Filexample/4.jpg"
         self.image_path_multiple_faces = 'path_to_image_with_multiple_faces.jpg'
 
         # Create an instance of GenderRecognizer

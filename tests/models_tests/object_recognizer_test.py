@@ -51,7 +51,7 @@ class ObjectRecognizerTest(unittest.TestCase):
 
     #Verify that the model recognizes correctly
     def test_recognize(self):
-        image_path = 'uploads/Filexample/persona1_01_10_44.jpeg'
+        image_path = 'uploads/Filexample/1.jpeg'
         result = self.instance.recognize(image_path, confidence_threshold=0.5, word='person')
 
         self.assertIsNotNone(result)
@@ -59,4 +59,4 @@ class ObjectRecognizerTest(unittest.TestCase):
         self.assertTrue(result.percentage >= 0.5)
         self.assertEqual(result.path, image_path)
         self.assertEqual(result.algorithm, "Yolo11")
-        self.assertEqual(result.time, "01:10:44")
+        self.assertEqual(result.time, "1")
