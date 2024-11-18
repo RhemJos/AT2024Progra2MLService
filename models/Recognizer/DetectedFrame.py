@@ -32,7 +32,9 @@ class DetectedFrame:
 
     # We take the las part of the path and separate the file name from the extension
         if parts:
-                filename = parts[-1]
-                return filename.split('.')[0]
-        else:
+            filenamepart = parts[-1]
+            filename = filenamepart.split('.')[0]
+            if (filename.isdigit()):
+                return filename
+            else:
                 return "No valid time found in the text."
