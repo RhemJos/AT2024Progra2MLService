@@ -1,9 +1,12 @@
 import json
 import re
+from utils.file_utils import extract_filename
+from utils.path_utils import normalize_path
+
 
 class DetectedFrame:
     def __init__(self, path, algorithm, word, percentage, time):
-        self.path = path  # Dirección del archivo
+        self.path = extract_filename(normalize_path(path))  # Dirección del archivo
         self.algorithm = algorithm  # Algoritmo usado para detectar la imagen
         self.word = word  # Palabra utilizada para la detección
         self.percentage = percentage  # Porcentaje de asertividad en la detección
@@ -12,7 +15,7 @@ class DetectedFrame:
     def to_json(self):
         # Creamos un diccionario con los atributos de la clase
         data = {
-            "path": self.path,
+            "name": self.path,
             "algorithm": self.algorithm,
             "word": self.word,
             "percentage": self.percentage,
@@ -27,14 +30,16 @@ class DetectedFrame:
                 f"second={self.time})")
 
     def get_time(self) -> str:
-    # We divide the path into parts using the forward slash as a reference
+        # Dividimos el path por '/' para obtener el nombre del archivo
         parts = self.path.split('/')
 
-    # We take the las part of the path and separate the file name from the extension
+        # Tomamos la última parte (nombre del archivo) y separamos la extensión
         if parts:
-            filenamepart = parts[-1]
-            filename = filenamepart.split('.')[0]
-            if (filename.isdigit()):
+            filename = parts[-1].split('.')[0]
+
+            # Si el nombre del archivo es un número, lo devolvemos como tiempo
+            if filename.isdigit():
                 return filename
             else:
                 return "No valid time found in the text."
+        return "No valid time found in the text."

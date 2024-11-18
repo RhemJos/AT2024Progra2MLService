@@ -9,6 +9,7 @@ services:
       - .:/app
     environment:
       - FLASK_ENV=development
+      - BASE_UPLOAD_PATH=${BASE_UPLOAD_PATH}
 
   postgres-db:
     image: postgres:15.3
