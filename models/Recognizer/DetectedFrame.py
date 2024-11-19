@@ -1,9 +1,12 @@
 import json
 import re
+from utils.file_utils import extract_filename
+from utils.path_utils import normalize_path
+
 
 class DetectedFrame:
     def __init__(self, path, algorithm, word, percentage, time):
-        self.path = path  # Dirección del archivo
+        self.path = extract_filename(normalize_path(path))  # Dirección del archivo
         self.algorithm = algorithm  # Algoritmo usado para detectar la imagen
         self.word = word  # Palabra utilizada para la detección
         self.percentage = percentage  # Porcentaje de asertividad en la detección
@@ -12,7 +15,7 @@ class DetectedFrame:
     def to_json(self):
         # Creamos un diccionario con los atributos de la clase
         data = {
-            "path": self.path,
+            "name": self.path,
             "algorithm": self.algorithm,
             "word": self.word,
             "percentage": self.percentage,
@@ -26,13 +29,17 @@ class DetectedFrame:
                 f"word={self.word}, percentage={self.percentage}%, "
                 f"second={self.time})")
 
-    def get_time(self) -> str: #TODO usar solo segundos
-    #Buscar el patrón de tiempo en formato HH_MM_SS en la cadena de texto
-        match = re.search(r'(\d{2})_(\d{2})_(\d{2})(?=\D*$)', self.path)
+    def get_time(self) -> str:
+        # Dividimos el path por '/' para obtener el nombre del archivo
+        parts = self.path.split('/')
 
-    # Si encontramos un patrón válido, formateamos y retornamos el tiempo
-        if match:
-                hours, minutes, seconds = match.groups()
-                return f"{hours}:{minutes}:{seconds}"
-        else:
+        # Tomamos la última parte (nombre del archivo) y separamos la extensión
+        if parts:
+            filename = parts[-1].split('.')[0]
+
+            # Si el nombre del archivo es un número, lo devolvemos como tiempo
+            if filename.isdigit():
+                return filename
+            else:
                 return "No valid time found in the text."
+        return "No valid time found in the text."

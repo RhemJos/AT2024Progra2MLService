@@ -29,12 +29,12 @@ def save_file(file):
 
 
 def extract_zip(zip_path, extract_folder):
-    if not os.path.exists(zip_path): 
-        raise FileNotFoundError(f"The file {zip_path} does not exist.") 
-    if not os.path.exists(extract_folder): 
-        os.makedirs(extract_folder) 
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref: 
-        zip_ref.extractall(extract_folder) 
+    if not os.path.exists(zip_path):
+        raise FileNotFoundError(f"The file {zip_path} does not exist.")
+    if not os.path.exists(extract_folder):
+        os.makedirs(extract_folder)
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_folder)
     return extract_folder
 
 
@@ -42,15 +42,22 @@ def download_file_from_url(url):
     extension = ".zip"
     # Crear la ruta completa del archivo, incluyendo el directorio especificado
     file_name = secure_filename(os.path.basename(url))
-    local_filename = os.path.join('uploads', file_name)+ extension
+    local_filename = os.path.join('uploads', file_name) + extension
 
-    # Descargar el archivo desde la URL
-    with requests.get(url, stream=True) as r:
-        r.raise_for_status()
-        with open(local_filename, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
-    return file_name + extension
+    try:
+        # Descargar el archivo desde la URL
+        with requests.get(url, stream=True) as r:
+            r.raise_for_status()
+            with open(local_filename, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    f.write(chunk)
+        return file_name + extension
+
+    except requests.exceptions.HTTPError as http_error:
+        raise http_error
+    except requests.exceptions.RequestException as req_err:
+        raise ValueError(f"Request failed: {str(req_err)}")
+
 
 def save_image(file):
     filename = "imagen de referencia"
@@ -61,3 +68,8 @@ def save_image(file):
     return file_path
 
 
+def extract_filename(path: str) -> str:
+    parts = path.split('/')
+    if parts:
+        return parts[-1]
+    return "No valid filename"
