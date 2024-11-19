@@ -45,32 +45,32 @@ def recognition():
 
 
 @face_recognition_blueprint.route('/face_recognition', methods=['POST'])
-def recognize_from_zip():
+def face_recognition():
     print("---INICIANDO FACE RECOGNITION---", flush=True)
     try:
-        # Obtener los datos del formulario y archivo
-        data = request.form.to_dict()  # Obtener los datos del formulario (solo texto)
+        # Get form data and file
+        data = request.form.to_dict()  # Get form data (only text)
         data['image_file_reference'] = request.files.get(
-            'image_file_reference')  # Agregar el archivo al diccionario
+            'image_file_reference')  # Get form data (only file) and append to data
 
         print(f"Datos combinados del formulario: {data}")
 
-        # Validar inputs
+        # Validate inputs
         zip_url, model_type, confidence_threshold, word = validate_recognition_inputs(
             data, is_face_recognition=True)
 
-        # Validar y manejar el archivo de referencia
+        # Validate and manage the reference file
         image_file_reference = data['image_file_reference']
         if isinstance(image_file_reference, FileStorage):
-            # Guardar el archivo si es de tipo FileStorage
+            # Save the file if it is of type FileStorage
             image_file_reference_path = save_image(image_file_reference)
         elif isinstance(image_file_reference, str):
-            # Usar la ruta directamente si es de tipo str
+            # Use the path directly if it is of type str
             image_file_reference_path = image_file_reference
         else:
             raise ParameterException("Invalid type for image_file_reference")
 
-        # Lógica principal del endpoint
+        # Main endpoint logic
         zip_filename = download_file_from_url(zip_url)
         zip_path = os.path.join(
             ModelRecognitionController.UPLOAD_FOLDER, zip_filename)
@@ -93,19 +93,19 @@ def recognize_from_zip():
 
 
 def validate_recognition_inputs(data, is_face_recognition=False):
-    """Validaciones estándar para los endpoints de reconocimiento."""
+    """Standard validations for recognition endpoints."""
     zip_url = data.get('zip_url')
     model_type = data.get('model_type')
     confidence_threshold = data.get('confidence_threshold', 0.1)
     word = data.get('word')
 
-    # Convertir confidence_threshold a float
+    # Convert confidence_threshold to float
     try:
         confidence_threshold = float(confidence_threshold)
     except ValueError:
         raise ParameterException("confidence_threshold must be a valid number")
 
-    # Definir validaciones comunes
+    # Define common validations
     validations = [
         RequiredTypeValidator("zip_url", zip_url, str),
         RequiredTypeValidator("model_type", model_type, str),
@@ -115,7 +115,7 @@ def validate_recognition_inputs(data, is_face_recognition=False):
         RequiredTypeValidator("word", word, str),
     ]
 
-    # Validación adicional para reconocimiento facial
+    # Additional validation for facial recognition
     if is_face_recognition:
         image_file_reference = data.get('image_file_reference')
         if not isinstance(image_file_reference, (FileStorage, str)):
@@ -126,7 +126,7 @@ def validate_recognition_inputs(data, is_face_recognition=False):
                                   image_file_reference, (FileStorage, str))
         )
 
-    # Ejecutar validaciones
+    # Run validations
     CompositeValidator(validations).validate()
 
     return zip_url, model_type, confidence_threshold, word
