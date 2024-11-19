@@ -45,7 +45,7 @@ def recognition():
         return jsonify({"success": False, "message": "An error occurred", "error": str(e)}), 500
 
 @face_recognition_blueprint.route('/face_recognition', methods=['POST'])
-def recognize_from_zip():
+def face_recognition():
     print("---INICIANDO FACE RECOGNITION---", flush=True)
     data = request.form
     zip_url = data.get('zip_url')
@@ -55,10 +55,7 @@ def recognize_from_zip():
     confidence_threshold = (data.get('confidence_threshold', 0.1))
     word = data.get('word')
     image_file_reference = request.files.get('image_file_reference')
-    print("guardara la imagen")
-    print(image_file_reference)
     reference_path = save_image(image_file_reference)
-    print("guardo la imagen")
 
     try:
         zip_path = ModelRecognitionController.UPLOAD_FOLDER + '/' + zip_filename
