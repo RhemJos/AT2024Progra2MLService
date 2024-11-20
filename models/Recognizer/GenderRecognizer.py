@@ -7,7 +7,7 @@
  accordance with the terms of the license agreement you entered into
  with Jalasoft.
 """# pragma: no cover
-
+import logging
 from deepface import DeepFace
 from .Recognizer import Recognizer
 from .DetectedFrame import DetectedFrame  # Importamos la clase DetectedFrame
@@ -18,21 +18,22 @@ class GenderRecognizer(Recognizer):
 
     def recognize(self, image_path: str, percentage: float = 0.1, word: str = None):
         if word not in ['Woman', 'Man']:
+            logging.error("The 'word' parameter must be either 'Woman' or 'Man'.")
             raise ValueError("The 'word' parameter must be either 'Woman' or 'Man'.")
 
         try:
-            # Analizamos la imagen para detectar el género
+            # Analyze the image
             analysis = DeepFace.analyze(image_path, actions=['gender'])
 
-            # Verificamos si el resultado es una lista y tomamos el primer elemento si es el caso
+            # If a list get the first element
             if isinstance(analysis, list):
-                analysis = analysis[0]  # Tomamos el primer rostro detectado
+                analysis = analysis[0]  # The first face identified
 
             detected_gender = analysis['gender']
             woman_percentage = float(detected_gender['Woman'])
             man_percentage = float(detected_gender['Man'])
 
-            # Solo devolveremos el resultado si cumple con los criterios de género y porcentaje
+            # Return the result only the percentage is at least the asked
             if word == 'Woman' and woman_percentage > man_percentage and woman_percentage >= percentage:
                 if woman_percentage >= percentage:
                     detected_frame = DetectedFrame(
@@ -40,7 +41,7 @@ class GenderRecognizer(Recognizer):
                         algorithm='DeepFace',
                         word=word,
                         percentage=woman_percentage,
-                        time="00:00:00"  # Tiempo estático para este ejemplo; puede adaptarse si se tiene esta información.
+                        time="00:00:00"
                     )
                     return detected_frame
                 else:
@@ -57,10 +58,10 @@ class GenderRecognizer(Recognizer):
                     return detected_frame
                 else:
                     return False
-            # Si no se cumplen los criterios, devolvemos None indicando que no se encontró coincidencia
-            print(f"No matches found for '{word}' with confidence >= {percentage}%.")
+            # If there is no face recognized
+            logging.info("No matches found for %s  with confidence >= %s", word, percentage)
             return None
 
         except Exception as e:
-            print(f"Error detecting gender: {e}")
+            logging.error("Error detecting gender:",e)
             return None

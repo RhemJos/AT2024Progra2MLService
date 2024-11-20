@@ -13,7 +13,7 @@ from ultralytics import YOLO
 from .DetectedFrame import DetectedFrame
 import os
 import json
-
+import logging
 
 class ObjectRecognizerYolo(Recognizer):
 
@@ -29,20 +29,20 @@ class ObjectRecognizerYolo(Recognizer):
         if word is None:
             raise ValueError("The 'word' parameter is required.")
 
-        # Ejecutamos la predicción del modelo para la palabra especificada
+        # Run the model prediction for the specified word
         self.results = self.loaded_model.predict(source=image_path, conf=confidence_threshold,
                                                  classes=[self.get_word_id(word)])
 
-        # Verificamos si se detectaron cuadros
+        # Check if frames were detected
         if not self.results or not self.results[0].boxes:
             return False  # Indica que no hubo detecciones
 
-        # Creamos una lista para almacenar los frames detectados
+        # Create a list to store the detected frames
         detected_frames = []
 
-        # Procesamos cada cuadro detectado para crear un DetectedFrame
+        # Process each detected frame to create a DetectedFrame
         for box in self.results[0].boxes:
-            confidence_score = float(box.conf[0]) * 100  # Convertimos a porcentaje
+            confidence_score = float(box.conf[0]) * 100  # to percentage
             if confidence_score >= (confidence_threshold * 100):
                 detected_frame = DetectedFrame(
                     path=image_path,
@@ -53,13 +53,14 @@ class ObjectRecognizerYolo(Recognizer):
                 )
                 detected_frames.append(detected_frame)
 
-        # Retornamos el primer cuadro detectado si existe alguno
+        # Return the first detected frame if one exists
         return detected_frames[0] if detected_frames else False
 
     def load_model(self):
         try:
             self.loaded_model = YOLO(self.model_path)
         except Exception as e:
+            logging.error(e)
             raise RuntimeError(f"Error al cargar el modelo: {e}")
 
     def load_labels(self, labels_path: str):
@@ -70,4 +71,5 @@ class ObjectRecognizerYolo(Recognizer):
         for id_label, label in self.yolo_labels.items():
             if label == target_word.lower():
                 return int(id_label)
+        logging.error("La palabra clave: %s no está en la lista de etiquetas ", target_word)
         raise ValueError(f"La palabra clave '{target_word}' no está en la lista de etiquetas.")
