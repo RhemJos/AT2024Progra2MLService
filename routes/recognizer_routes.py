@@ -8,16 +8,21 @@ from common.validations.required_type_validator import RequiredTypeValidator
 from controllers.recognizer_controller import ModelRecognitionController
 from utils.file_utils import download_file_from_url, save_image
 from common.validations.error_handler_facade import ErrorHandlerFacade
+from utils.logging_config import setup_logging
 import json
+import logging
+
 
 
 recognition_blueprint = Blueprint('recognition', __name__)
 face_recognition_blueprint = Blueprint('face_recognition', __name__)
 error_handler = ErrorHandlerFacade()
+setup_logging()
 
 
 @recognition_blueprint.route('/recognition', methods=['POST'])
 def recognition():
+    logging.info("In recognition route")
     print("---INICIANDO---", flush=True)
     try:
         data = request.get_json()
@@ -46,15 +51,15 @@ def recognition():
 
 @face_recognition_blueprint.route('/face_recognition', methods=['POST'])
 def face_recognition():
+    logging.info("In face recognition route")
     print("---INICIANDO FACE RECOGNITION---", flush=True)
     try:
         # Get form data and file
         data = request.form.to_dict()  # Get form data (only text)
         data['image_file_reference'] = request.files.get(
             'image_file_reference')  # Get form data (only file) and append to data
-
-        print(f"Datos combinados del formulario: {data}")
-
+        logging.info("In recognition route")
+        logging.info("Form data combined: %s", data)
         # Validate inputs
         zip_url, model_type, confidence_threshold, word = validate_recognition_inputs(
             data, is_face_recognition=True)
@@ -68,6 +73,7 @@ def face_recognition():
             # Use the path directly if it is of type str
             image_file_reference_path = image_file_reference
         else:
+            logging.error("Invalid type for image_file_reference")
             raise ParameterException("Invalid type for image_file_reference")
 
         # Main endpoint logic
