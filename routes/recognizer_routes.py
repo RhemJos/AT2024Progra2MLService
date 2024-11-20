@@ -79,8 +79,8 @@ def face_recognition():
             model_type, extract_folder)
 
         results = [
-            json.loads(ModelRecognitionController.recognize_face(
-                image, image_file_reference_path, confidence_threshold, word).to_json())
+            ModelRecognitionController.recognize_face(
+                image, image_file_reference_path, confidence_threshold, word)
             for image in image_files
             if ModelRecognitionController.recognize_face(image, image_file_reference_path, confidence_threshold, word)
         ]
