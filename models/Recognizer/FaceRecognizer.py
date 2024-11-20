@@ -1,8 +1,7 @@
 from deepface import DeepFace
 from .Recognizer import Recognizer
 from .DetectedFrame import DetectedFrame
-import os
-
+import logging
 
 class FaceRecognizer(Recognizer):
     def __init__(self):
@@ -12,32 +11,30 @@ class FaceRecognizer(Recognizer):
                   word: str = "face") -> DetectedFrame:
 
         try:
-            # Realizar la comparación de rostros
+            # Verify face similarity
             result = DeepFace.verify(img1_path=reference_image_path, img2_path=image_path)
             similarity_score = result['distance'] if 'distance' in result else None
-            print(similarity_score)
             if similarity_score is None:
-                print("Error: No similarity score returned.")
+                logging.error("No similarity score returned.")
                 return None
 
-            # Convertimos la distancia en porcentaje de similitud
+            # Convert similarity score to a 1-100 value percentage
             similarity_percentage = (1 - similarity_score) * 100
 
-            # Verificamos si el porcentaje de similitud es mayor o igual al requerido
+            # Verify the similarity percentage is the value asked in percentage input
             if similarity_percentage >= percentage:
                 detected_frame = DetectedFrame(
                     path=image_path,
                     algorithm='DeepFace',
                     word=word,
                     percentage=round(similarity_percentage, 2),
-                    time="00:00:00"  # Tiempo estático; cambiar según disponibilidad de información
+                    time="00:00:00"
                 )
                 return detected_frame
 
-            print(
-                f"No match found with confidence >= {percentage}%. Similarity was {round(similarity_percentage, 2)}%.")
+            logging.warning("No match found with confidence >= %s % Similarity was : %/s", percentage, round(similarity_percentage, 2))
             return None
 
         except Exception as e:
-            print(f"Error during face recognition: {e}")
+            logging.error(e)
             return None
