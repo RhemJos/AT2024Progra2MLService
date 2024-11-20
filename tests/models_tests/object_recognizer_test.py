@@ -57,6 +57,6 @@ class ObjectRecognizerTest(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(result.word, 'person')
         self.assertTrue(result.percentage >= 0.5)
-        self.assertEqual(result.path, image_path)
+        self.assertEqual(result.name, '1.jpeg')
         self.assertEqual(result.algorithm, "Yolo11")
         self.assertEqual(result.time, "1")
