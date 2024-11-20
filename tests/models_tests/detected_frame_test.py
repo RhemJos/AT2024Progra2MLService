@@ -13,7 +13,7 @@ class TestDetectedFrame(unittest.TestCase):
     def test_to_json(self):
         frame = DetectedFrame(self.valid_path, self.algorithm, self.word, self.percentage, "1")
         json_data = frame.to_json()
-        self.assertIn('"path": "uploads/Filexample/1.jpeg"', json_data)
+        self.assertIn('"name": "1.jpeg"', json_data)
         self.assertIn('"algorithm": "yolo"', json_data)
         self.assertIn('"word": "person"', json_data)
         self.assertIn('"percentage": 0.8', json_data)
@@ -22,7 +22,7 @@ class TestDetectedFrame(unittest.TestCase):
     # Test if the string representation is formatted correctly
     def test_str_representation(self):
         frame = DetectedFrame(self.valid_path, self.algorithm, self.word, self.percentage, "1")
-        expected_str = ("DetectedFrame(path=uploads/Filexample/1.jpeg, algorithm=yolo, "
+        expected_str = ("DetectedFrame(path=1.jpeg, algorithm=yolo, "
                         "word=person, percentage=0.8%, second=1)")
         self.assertEqual(str(frame), expected_str)
 
