@@ -16,8 +16,6 @@ class TestRecognitionEndpoints(unittest.TestCase):
         cls.app.register_blueprint(face_recognition_blueprint)
         cls.client = cls.app.test_client()
 
-    # TODO: Review the response for code status 200!=404  Expected: 404 Actual: 200
-    """
     # Test the '/recognition' endpoint with valid parameters
     @patch('utils.file_utils.download_file_from_url')
     @patch('controllers.recognizer_controller.ModelRecognitionController.extract_zip')
@@ -25,25 +23,23 @@ class TestRecognitionEndpoints(unittest.TestCase):
     @patch('controllers.recognizer_controller.ModelRecognitionController.recognize')
     def test_recognition_valid(self, mock_recognize, mock_list_images, mock_extract_zip, mock_download_file):
         mock_download_file.return_value = 'fake_zip_file.zip'
-        mock_extract_zip.return_value = '/fake/extract/folder'
-        mock_list_images.return_value = ['/fake/extract/folder/image1.jpg', '/fake/extract/folder/image2.jpg']
-        mock_recognize.return_value = {'result': 'success'}
+        mock_extract_zip.return_value = '/fake/extracted/folder'
+        mock_list_images.return_value = ['/fake/extracted/folder/image1.jpg', '/fake/extracted/folder/image2.jpg']
+        mock_recognize.return_value.to_json.return_value = '{"result": "success"}'
 
         data = {
-            'zip_url': 'http://example.com/fake.zip',
-            'model_type': 'face_recognition',
-            'confidence_threshold': 0.8,
-            'word': 'face'
+            "zip_url": "https://drive.google.com/uc?export=download&id=15m-a4lg37vu5jW83GyUzwRQBFTsSedd7",
+            "model_type": "face_recognition",
+            "confidence_threshold": 0.8,
+            "word": "face"
         }
 
-        # Send POST request
-        response = self.client.post('/recognition', json=data)
+        response = self.client.post('/recognition', json=data, content_type="application/json")
 
         # Assert response status code and message
         self.assertEqual(response.status_code, 200)
-        self.assertIn('success', response.json['message'])
-        self.assertEqual(response.json['results'], [{'result': 'success'}])
-    """
+        self.assertIn('ZIP extracted and images listed', response.json['message'])
+        self.assertEqual(response.json['results'],[{'result': 'success'}, {'result': 'success'}])
 
     # Test the '/recognition' endpoint with invalid 'confidence_threshold'
     def test_recognition_invalid_confidence_threshold(self):
@@ -77,7 +73,6 @@ class TestRecognitionEndpoints(unittest.TestCase):
         self.assertIn('zip_url', response.json['message'])
 
     #TODO: Review the response for code status 200!=400 Expected: 400 Actual: 200
-    """
     # Test the '/face_recognition' endpoint with valid parameters and image file
     @patch('utils.file_utils.download_file_from_url')
     @patch('controllers.recognizer_controller.ModelRecognitionController.extract_zip')
@@ -90,26 +85,27 @@ class TestRecognitionEndpoints(unittest.TestCase):
         mock_recognize_face.return_value = {'result': 'success'}
 
         data = {
-            'zip_url': 'http://example.com/fake.zip',
+            'zip_url': 'https://drive.google.com/uc?export=download&id=15m-a4lg37vu5jW83GyUzwRQBFTsSedd7',
             'model_type': 'face_recognition',
             'confidence_threshold': 0.8,
             'word': 'face'
         }
 
         files = {
-            'image_file_reference': (BytesIO(b"fake image content"), 'reference_image.jpg')
+            'image_file_reference': (BytesIO(b"fake image content"), 'reference_image.jpg')  # Proper file
         }
 
         # Send POST request with form data and image
-        response = self.client.post('/face_recognition', data=data, content_type='multipart/form-data', follow_redirects=True)
+        response = self.client.post('/face_recognition',data={**data, **files}, content_type='multipart/form-data', follow_redirects=True)
 
+        print(response.data)
+        print(response.json)
         # Assert response status code and message
         self.assertEqual(response.status_code, 200)
-        self.assertIn('success', response.json['message'])
-        self.assertEqual(response.json['results'], [{'result': 'success'}])
-    """
+        self.assertIn('ZIP extracted and images listed', response.json['message'])
+        self.assertEqual(len(response.json['results']), 2)
 
-    # Test the '/face_recognition' endpoint with missing 'image_file_reference'
+        # Test the '/face_recognition' endpoint with missing 'image_file_reference'
     def test_face_recognition_missing_image_file_reference(self):
         data = {
             'zip_url': 'http://example.com/fake.zip',
