@@ -3,7 +3,6 @@ import os
 from services.generic_recognition_service import GenericRecognitionService
 from services.recognizer_strategy import GenderRecognitionStrategy, ObjectRecognitionStrategy
 from utils.file_utils import extract_zip
-from services.recognizer_services import RecognitionService
 from services.face_recognition_service import FaceRecognitionService
 
 
