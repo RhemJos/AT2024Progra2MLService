@@ -200,3 +200,50 @@
  * Running on http://127.0.0.1:5000
  * Running on http://172.28.0.2:5000
 2024-11-21 18:51:28,927 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-21 18:55:24,367 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.0.2:5000
+2024-11-21 18:55:24,370 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-21 18:59:25,208 - root - INFO - In recognition route
+2024-11-21 18:59:28,829 - root - ERROR - HTTPConnectionPool(host='api-converter', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f021f59a8f0>: Failed to resolve 'api-converter' ([Errno -2] Name or service not known)"))
+2024-11-21 18:59:28,841 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 18:59:28] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 18:59:43,415 - root - INFO - In recognition route
+2024-11-21 18:59:43,420 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f021f59bcd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 18:59:43,423 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 18:59:43] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:01:14,382 - root - INFO - In recognition route
+2024-11-21 19:01:17,725 - root - ERROR - HTTPConnectionPool(host='api-converter', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f021f59b970>: Failed to resolve 'api-converter' ([Errno -2] Name or service not known)"))
+2024-11-21 19:01:17,726 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:01:17] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:03:29,085 - root - INFO - In recognition route
+2024-11-21 19:03:52,408 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:03:52] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 19:17:33,115 - root - INFO - In recognition route
+2024-11-21 19:17:33,118 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01fff7dc30>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:17:33,119 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:17:33] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:18:27,799 - root - INFO - In recognition route
+2024-11-21 19:18:27,804 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01ffec4880>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:18:27,810 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:18:27] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:19:14,849 - root - INFO - In recognition route
+2024-11-21 19:19:14,856 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01ffec6200>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:19:14,858 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:19:14] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:21:46,982 - root - INFO - In recognition route
+2024-11-21 19:21:57,302 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:21:57] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 19:27:28,579 - root - INFO - In recognition route
+2024-11-21 19:27:28,582 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01ffe86a70>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:27:28,583 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:27:28] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:28:41,518 - root - INFO - In recognition route
+2024-11-21 19:28:41,521 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01fff254e0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:28:41,522 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:28:41] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:29:08,585 - root - INFO - In recognition route
+2024-11-21 19:29:08,588 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f021f59b6a0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:29:08,589 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:29:08] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:29:32,678 - root - INFO - In recognition route
+2024-11-21 19:29:32,681 - root - ERROR - HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01ffe86d70>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-11-21 19:29:32,682 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:29:32] "[31m[1mPOST /api/recognition HTTP/1.1[0m" 400 -
+2024-11-21 19:29:55,192 - root - INFO - In recognition route
+2024-11-21 19:30:11,580 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:30:11] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 19:56:46,308 - root - INFO - In recognition route
+2024-11-21 19:57:18,978 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:57:18] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 19:57:32,563 - root - INFO - In recognition route
+2024-11-21 19:58:06,075 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:58:06] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 20:34:54,344 - root - INFO - In recognition route
+2024-11-21 20:34:59,871 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 20:34:59] "POST /api/recognition HTTP/1.1" 200 -
