@@ -247,3 +247,92 @@
 2024-11-21 19:58:06,075 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 19:58:06] "POST /api/recognition HTTP/1.1" 200 -
 2024-11-21 20:34:54,344 - root - INFO - In recognition route
 2024-11-21 20:34:59,871 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 20:34:59] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 20:44:00,902 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.0.2:5000
+2024-11-21 20:44:00,903 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-21 20:44:04,547 - root - INFO - In recognition route
+2024-11-21 20:44:21,665 - werkzeug - INFO - 172.28.0.1 - - [21/Nov/2024 20:44:21] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-21 21:32:10,006 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.0.2:5000
+2024-11-21 21:32:10,007 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 00:22:29,855 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.0.2:5000
+2024-11-22 00:22:29,889 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 00:28:06,410 - root - INFO - In recognition route
+2024-11-22 00:28:23,878 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 00:28:23] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-22 02:02:21,005 - root - INFO - In recognition route
+2024-11-22 02:07:46,006 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2024-11-22 02:09:09,744 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 02:09:09] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-22 02:14:14,515 - root - INFO - In recognition route
+2024-11-22 02:14:36,088 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 02:14:36] "POST /api/recognition HTTP/1.1" 200 -
+2024-11-22 02:17:23,574 - root - INFO - In face recognition route
+2024-11-22 02:17:23,747 - root - INFO - In recognition route
+2024-11-22 02:17:23,763 - root - INFO - Form data combined: {'zip_url': 'http://api-converter:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'model_type': 'Object', 'confidence_threshold': '0.8', 'word': 'person', 'image_file_reference': <FileStorage: 'prueba.jpg' ('image/jpeg')>}
+2024-11-22 02:17:23,926 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 02:17:23,937 - root - INFO - Route type: <class 'str'>
+2024-11-22 02:25:51,223 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:26:01,192 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:27:17,038 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 02:27:17] "[35m[1mPOST /api/face_recognition HTTP/1.1[0m" 500 -
+2024-11-22 02:31:41,624 - root - INFO - In face recognition route
+2024-11-22 02:31:43,077 - root - INFO - In recognition route
+2024-11-22 02:31:43,174 - root - INFO - Form data combined: {'zip_url': 'http://api-converter:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'model_type': 'Object', 'confidence_threshold': '0.8', 'word': 'woman', 'image_file_reference': <FileStorage: 'prueba.jpg' ('image/jpeg')>}
+2024-11-22 02:31:43,710 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 02:31:43,711 - root - INFO - Route type: <class 'str'>
+2024-11-22 02:32:45,674 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:32:54,083 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:34:15,638 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 02:34:15] "[35m[1mPOST /api/face_recognition HTTP/1.1[0m" 500 -
+2024-11-22 02:34:58,874 - root - INFO - In face recognition route
+2024-11-22 02:34:58,896 - root - INFO - In recognition route
+2024-11-22 02:34:58,896 - root - INFO - Form data combined: {'word': 'face recognition', 'model_type': 'object', 'confidence_threshold': '0.1', 'zip_url': 'http://192.168.100.8:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'image_file_reference': <FileStorage: 'prueba.jpg' (None)>}
+2024-11-22 02:34:58,910 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 02:34:58,911 - root - INFO - Route type: <class 'str'>
+2024-11-22 02:35:48,662 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:35:56,814 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:37:15,536 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 02:37:15] "[35m[1mPOST /api/face_recognition HTTP/1.1[0m" 500 -
+2024-11-22 02:39:29,860 - root - INFO - In face recognition route
+2024-11-22 02:39:29,892 - root - INFO - In recognition route
+2024-11-22 02:39:29,893 - root - INFO - Form data combined: {'word': 'face recognition', 'model_type': 'object', 'confidence_threshold': '0.1', 'zip_url': 'http://192.168.100.8:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'image_file_reference': <FileStorage: 'prueba.jpg' (None)>}
+2024-11-22 02:39:29,913 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 02:39:29,918 - root - INFO - Route type: <class 'str'>
+2024-11-22 02:40:17,573 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:40:25,484 - root - ERROR - Exception while processing img2_path
+2024-11-22 02:41:52,009 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 02:41:52] "[35m[1mPOST /api/face_recognition HTTP/1.1[0m" 500 -
+2024-11-22 03:01:33,414 - root - INFO - In face recognition route
+2024-11-22 03:01:33,563 - root - INFO - In recognition route
+2024-11-22 03:01:33,569 - root - INFO - Form data combined: {'zip_url': 'http://api-converter:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'model_type': 'Object', 'confidence_threshold': '0.1', 'word': 'woman', 'image_file_reference': <FileStorage: 'prueba.jpg' ('image/jpeg')>}
+2024-11-22 03:01:34,934 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 03:01:34,954 - root - INFO - Route type: <class 'str'>
+2024-11-22 03:02:35,837 - root - ERROR - Exception while processing img2_path
+2024-11-22 03:02:49,474 - root - ERROR - Exception while processing img2_path
+2024-11-22 03:04:30,077 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 03:04:30] "[35m[1mPOST /api/face_recognition HTTP/1.1[0m" 500 -
+2024-11-22 03:05:45,533 - root - INFO - In face recognition route
+2024-11-22 03:05:45,572 - root - INFO - In recognition route
+2024-11-22 03:05:45,583 - root - INFO - Form data combined: {'zip_url': 'https://drive.google.com/uc?export=1HbeeHzKfACRbRKomv08HcxKDro9ChaxX', 'model_type': 'Object', 'confidence_threshold': '0.1', 'word': 'woman', 'image_file_reference': <FileStorage: 'prueba.jpg' ('image/jpeg')>}
+2024-11-22 03:05:45,989 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 03:05:45,989 - root - INFO - Route type: <class 'str'>
+2024-11-22 03:05:47,736 - root - ERROR - 400 Client Error: Bad Request for url: https://drive.google.com/uc?export=1HbeeHzKfACRbRKomv08HcxKDro9ChaxX
+2024-11-22 03:05:47,748 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 03:05:47] "[31m[1mPOST /api/face_recognition HTTP/1.1[0m" 400 -
+2024-11-22 03:06:22,800 - root - INFO - In face recognition route
+2024-11-22 03:06:22,858 - root - INFO - In recognition route
+2024-11-22 03:06:22,866 - root - INFO - Form data combined: {'zip_url': 'https://drive.google.com/uc?export=download&id=1HbeeHzKfACRbRKomv08HcxKDro9ChaxX', 'model_type': 'Object', 'confidence_threshold': '0.1', 'word': 'woman', 'image_file_reference': <FileStorage: 'prueba.jpg' ('image/jpeg')>}
+2024-11-22 03:06:23,090 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 03:06:23,091 - root - INFO - Route type: <class 'str'>
+2024-11-22 03:08:58,069 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 03:08:58] "[35m[1mPOST /api/face_recognition HTTP/1.1[0m" 500 -
+2024-11-22 03:23:03,706 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.0.2:5000
+2024-11-22 03:23:03,707 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 03:23:11,290 - root - INFO - In face recognition route
+2024-11-22 03:23:11,335 - root - INFO - In recognition route
+2024-11-22 03:23:11,340 - root - INFO - Form data combined: {'zip_url': 'https://drive.google.com/uc?export=download&id=1HbeeHzKfACRbRKomv08HcxKDro9ChaxX', 'model_type': 'Object', 'confidence_threshold': '0.1', 'word': 'woman', 'image_file_reference': <FileStorage: 'prueba.jpg' ('image/jpeg')>}
+2024-11-22 03:23:11,804 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 03:23:11,805 - root - INFO - Route type: <class 'str'>
+2024-11-22 03:23:22,491 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2024-11-22 03:26:35,842 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 03:26:35] "POST /api/face_recognition HTTP/1.1" 200 -
