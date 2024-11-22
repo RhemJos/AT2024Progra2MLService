@@ -86,7 +86,7 @@ def face_recognition():
 
         results = [
             ModelRecognitionController.recognize_face(
-                image, image_file_reference_path, confidence_threshold, word)
+                image, image_file_reference_path, confidence_threshold, word).to_json()
             for image in image_files
             if ModelRecognitionController.recognize_face(image, image_file_reference_path, confidence_threshold, word)
         ]
