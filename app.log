@@ -336,3 +336,24 @@
 2024-11-22 03:23:11,805 - root - INFO - Route type: <class 'str'>
 2024-11-22 03:23:22,491 - h5py._conv - DEBUG - Creating converter from 3 to 5
 2024-11-22 03:26:35,842 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 03:26:35] "POST /api/face_recognition HTTP/1.1" 200 -
+2024-11-22 05:03:40,976 - root - INFO - In face recognition route
+2024-11-22 05:03:41,197 - root - INFO - In recognition route
+2024-11-22 05:03:41,227 - root - INFO - Form data combined: {'word': 'face recognition', 'model_type': 'object', 'confidence_threshold': '0.1', 'zip_url': 'http://192.168.100.8:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'image_file_reference': <FileStorage: 'prueba.jpg' (None)>}
+2024-11-22 05:03:41,355 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 05:03:41,368 - root - INFO - Route type: <class 'str'>
+2024-11-22 05:04:41,108 - root - ERROR - Exception while processing img2_path
+2024-11-22 05:04:49,150 - root - ERROR - Exception while processing img2_path
+2024-11-22 05:05:53,302 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.0.2:5000
+2024-11-22 05:05:53,303 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 05:06:25,880 - root - INFO - In face recognition route
+2024-11-22 05:06:25,904 - root - INFO - In recognition route
+2024-11-22 05:06:25,905 - root - INFO - Form data combined: {'word': 'face recognition', 'model_type': 'object', 'confidence_threshold': '0.1', 'zip_url': 'http://192.168.100.8:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip', 'image_file_reference': <FileStorage: 'prueba.jpg' (None)>}
+2024-11-22 05:06:25,922 - root - INFO - File saved at /app/uploads/imagen de referencia
+2024-11-22 05:06:25,924 - root - INFO - Route type: <class 'str'>
+2024-11-22 05:06:30,142 - h5py._conv - DEBUG - Creating converter from 3 to 5
+2024-11-22 05:07:41,276 - root - ERROR - Exception while processing img2_path
+2024-11-22 05:07:49,106 - root - ERROR - Exception while processing img2_path
+2024-11-22 05:08:56,993 - werkzeug - INFO - 172.28.0.1 - - [22/Nov/2024 05:08:56] "POST /api/face_recognition HTTP/1.1" 200 -
