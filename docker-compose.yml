@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  rest-api:
+    build: .
+    ports:
+      - ${LOCAL_PORT}:5000
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - BASE_UPLOAD_PATH=${BASE_UPLOAD_PATH}
+    networks:
+      - my-network
+
+networks:
+  my-network:
